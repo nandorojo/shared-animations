@@ -1,5 +1,6 @@
 import { AnimationContextType } from '../Context/SharedAnimationContext';
 import { MapValuesToProps } from '../HOC/types';
+import { AnimatedType } from '../types';
 
 export default (mapValuesToProps: MapValuesToProps, context: AnimationContextType) => {
 	try {
@@ -17,7 +18,7 @@ export default (mapValuesToProps: MapValuesToProps, context: AnimationContextTyp
 				throw new Error(`Error in first argument of connectSharedAnimation HOC. An array was passed, but values were not all strings.
 This argument should either be a string, array of strings, or object creator function that takes animatedValues as the first argument. In the first two cases, strings should correspond to the names of initialized animated values.`);
 			}
-			const values = {};
+			const values: { [key: string]: AnimatedType } = {};
 			const valueList = mapValuesToProps;
 			valueList.forEach(name => {
 				values[name] = context.getValue(name);

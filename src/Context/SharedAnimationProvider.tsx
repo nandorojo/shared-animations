@@ -1,5 +1,4 @@
 import React from 'react';
-import Animated from 'react-native-reanimated';
 import AnimationContext from './SharedAnimationContext';
 import { LIBRARY_NAME } from '../constants/index';
 import getValues from '../helpers/getValues';
