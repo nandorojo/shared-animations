@@ -1,10 +1,8 @@
 # 🕺 react-native-shared-animation
 
-A global animation-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.
+A global state management tool, built for react-native's `Animated` values.
 
-This package is super easy to use and requires no more than 1 minute of learning.
-
-Also supports `react-native-reanimated` and `react-native-gesture-handler`.
+Like redux for animations.
 
 ## Why?
 
