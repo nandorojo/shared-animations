@@ -3,9 +3,11 @@ import connectSharedAnimation from './HOC/connectSharedAnimation';
 import SharedAnimation from './Context/SharedAnimation';
 import useSharedAnimation from './useSharedAnimation/index';
 
-export default {
+const SharedAnimations = {
 	SharedAnimationProvider,
 	connectSharedAnimation,
 	SharedAnimation,
 	useSharedAnimation,
 };
+
+export default SharedAnimations;
