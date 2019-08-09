@@ -10,4 +10,4 @@ npm-debug.*
 web-build/
 web-report/
 examples
-lib
+node_modules
