@@ -1,4 +1,4 @@
-# 🕺 react-native-shared-animation
+# 🕺shared-animations for React Native
 
 A global state management tool, built for react-native's `Animated` values.
 
