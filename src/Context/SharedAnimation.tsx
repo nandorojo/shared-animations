@@ -7,6 +7,7 @@ interface AnimationConsumerProps {
 
 export default class SharedAnimation extends React.Component<AnimationConsumerProps> {
 	render() {
+		return null;
 		return (
 			<AnimationContext.Consumer>
 				{(context: AnimationContextType) => this.props.children(context)}

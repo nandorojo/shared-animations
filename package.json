@@ -2,12 +2,12 @@
 	"name": "@fernandorojo/react-native-shared-animation",
 	"description": "A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.",
 	"version": "1.0.1",
-	"main": "compiled/index.js",
+	"main": "lib/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build:tsc": "tsc -p .",
 		"check-types": "tsc",
-		"build": "npx babel src --extensions '.ts' --out-dir lib"
+		"build": "npx babel src --extensions '.tsx,.ts' --out-dir lib"
 	},
 	"author": "Fernando Rojo",
 	"license": "MIT",
