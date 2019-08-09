@@ -1,7 +1,7 @@
 {
 	"name": "@nandorojo/shared-animations",
 	"description": "A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.",
-	"version": "1.0.3",
+	"version": "1.0.5",
 	"main": "./lib/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
