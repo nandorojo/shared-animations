@@ -6,7 +6,7 @@ This package is super easy to use and requires no more than 1 minute of learning
 
 Also supports `react-native-reanimated` and `react-native-gesture-handler`.
 
-## Why? 
+## Why?
 
 **Sharing animated values across components should be easy.** However, it currently requires so much prop drilling that any complex animation in `react-native` becomes a hassle to manage.
 
@@ -16,7 +16,7 @@ Any time you find yourself passing a certain animation value from one component 
 
 **Example use case**
 
-Maybe you have a component with a `ScrollView`, and a header you want to react to its scroll position, but the two components aren't that close together code-wise. If this were the case, without this library, have to declare an animated value high up in the component tree, and then pass it down the three through many layers of components. 
+Maybe you have a component with a `ScrollView`, and a header you want to react to its scroll position, but the two components aren't that close together code-wise. If this were the case, without this library, have to declare an animated value high up in the component tree, and then pass it down the three through many layers of components.
 
 This library aims to fix that.
 
@@ -26,8 +26,6 @@ I also think this could help make it easy to achieve shared transitions across s
 
 Much of the syntax is similar to `react-redux`, but if you aren't familiar with how redux works, don't worry; this is much simpler.
 
-
-
 ## Quick setup
 
 The boilerplate setup takes about 15 seconds and is similar to redux in how it works. Just wrap your entire app with the `<SharedAnimationProvider />` component.
@@ -35,43 +33,40 @@ The boilerplate setup takes about 15 seconds and is similar to redux in how it w
 **App.js**
 
 ```javascript
-import React from 'react'
-import { SharedAnimationProvider } from 'react-native-shared-animation'
-import Animated from 'react-native-reanimated'
-import App from './src/App'
+import React from 'react';
+import { SharedAnimationProvider } from 'react-native-shared-animation';
+import Animated from 'react-native-reanimated';
+import App from './src/App';
 
 export default () => {
-	const animatedValues = { myCoolAnimatedValue: new Animated.Value(0) }
+	const animatedValues = { myCoolAnimatedValue: new Animated.Value(0) };
 	return (
 		<SharedAnimationProvider animatedValues={animatedValues}>
 			<App />
 		</SharedAnimationProvider>
-	)
-}
-
+	);
+};
 ```
-
 
 In some other nested component, all you'd need to do is this:
 
 ```javascript
-import React from 'react'
-import { useSharedAnimation } from 'react-native-shared-animation'
-import Animated from 'react-native-reanimated'
+import React from 'react';
+import { useSharedAnimation } from 'react-native-shared-animation';
+import Animated from 'react-native-reanimated';
 
 export default () => {
 	// here we get the value from our global store using react hooks
 	const { getValue } = useSharedAnimation();
 	const coolValue = getValue('myCoolAnimatedValue');
-	
-	return <Animated.View style={{ width: coolValue }} />
-}
+
+	return <Animated.View style={{ width: coolValue }} />;
+};
 ```
 
 You can also use the `connectSharedAnimation` HOC or the `<SharedAnimation />` component if you don't want to use the `useSharedAnimation` hook.
 
-🎉 **All set. Your app is now ready to share animated values across components.** 
-
+🎉 **All set. Your app is now ready to share animated values across components.**
 
 Below I'll expand on all the ways that you're able to **1) initialize animated values** and **2) access animated values**.
 
@@ -79,19 +74,18 @@ Below I'll expand on all the ways that you're able to **1) initialize animated v
 
 **To see full examples, go to the [/examples]() folder.** You can also see the Expo snack of examples [here]().
 
-
 ## Installation
 
 To install, open your react native repository in the terminal and run this command:
 
 ```
-npm i react-native-shared-animation
+npm i @nandorojo/shared-animations
 ```
 
 You could use yarn if you prefer that:
 
 ```
-yarn react-native-shared-animation
+yarn add @nandorojo/shared-animations
 ```
 
 **Recommended:** If you want to use [`react-native-reanimated`](https://github.com/kmagiera/react-native-reanimated) for animations, run this afterwards:
@@ -101,6 +95,7 @@ npm i react-native-reanimated react-native-gesture-handler
 ```
 
 ### This works with...
+
 ✅ `react-native-reanimated`
 
 ✅ `Animated` from `react-native` if you prefer that.
@@ -112,9 +107,10 @@ npm i react-native-reanimated react-native-gesture-handler
 ✅ `react-native-gesture-handler`
 
 ## 1) Initializing shared animated values
+
 You have two options for initializing shared animation values: global initialization or on-the-fly initializiation in components.
 
-###  i) [Recommended] Initialize global animated values
+### i) [Recommended] Initialize global animated values
 
 Simply pass an `animatedValues` object as a prop to the `<SharedAnimationProvider />` component. This will act as the initial set of animated values.
 
@@ -131,7 +127,7 @@ import App from './src/App' // path to your root component
 export default () => {
 	const mainScrollValue = new Animated.Value(0)
 	const animatedValues = { mainScrollValue }
-	
+
 	<SharedAnimationProvider animatedValues={animatedValues}>
 		<App />
 	</SharedAnimationProvider>
@@ -143,15 +139,15 @@ export default () => {
 
 In this case, `mainScrollValue` can be accessed by **any** component.
 
-If you come from a redux background, you can think of this like setting the initial store value. 
+If you come from a redux background, you can think of this like setting the initial store value.
 
 #### Why this is the better option:
 
-From a style perspective, it is useful to know what values will be accessible across your app upon initialization. And when it comes to performance, this is less prone to bugs, since you'll never try to access a value that hasn't been initialized. 
+From a style perspective, it is useful to know what values will be accessible across your app upon initialization. And when it comes to performance, this is less prone to bugs, since you'll never try to access a value that hasn't been initialized.
 
 That said, you also have the `newValue` method to your disposal, as described in the next option.
 
-### **ii) [Careful] Initialize animated values on the fly in components** 
+### **ii) [Careful] Initialize animated values on the fly in components**
 
 You can also initialize animated values directly in components. The thing is, this option is more prone to bugs, since you might try to access an animated value before it's been initialized.
 
@@ -159,29 +155,27 @@ Overall, I'd suggest only using this one on a case-by-case basis.
 
 It can be achieved with the `newValue(name, value)` function, documented [below]().
 
-
 ## 2) Accessing animated values
 
 Here's the fun part.
-
 
 ---
 
 ### There are 3 ways to access animated values
 
-These are the 3 options you have: 
+These are the 3 options you have:
 
-1) **`useSharedAnimation` hook:** The `useSharedAnimation` hook is super simple (and is my favorite to use). Only works in function components. See react hooks to learn more.
+1. **`useSharedAnimation` hook:** The `useSharedAnimation` hook is super simple (and is my favorite to use). Only works in function components. See react hooks to learn more.
 
-2) **`connectSharedAnimation` HOC:** You can use the `connectSharedAnimation` higher-order component. Useful for class components and function components. Good for taking animation logic out of a component, too.
+2. **`connectSharedAnimation` HOC:** You can use the `connectSharedAnimation` higher-order component. Useful for class components and function components. Good for taking animation logic out of a component, too.
 
-3) **`SharedAnimation` component:** You can also wrap any component with `<SharedAnimation />` to connect it to the global animation state.
+3. **`SharedAnimation` component:** You can also wrap any component with `<SharedAnimation />` to connect it to the global animation state.
 
 ---
 
 ### Option 1: `useSharedAnimation`
 
-Call `useSharedAnimation` in the root of a function component. 
+Call `useSharedAnimation` in the root of a function component.
 
 **Example:**
 
@@ -194,7 +188,7 @@ export default () => {
 	const scroll = getValue('scroll')
 	// same as...
 	const { scroll } = animatedValues;
-	
+
 	return <Animated.View style={{ ..., translateX: scroll }} />
 }
 
@@ -210,7 +204,7 @@ So simple!
 
 ### Option 2: `connectSharedAnimation(mapValuesToProps)(Component)`
 
-You can also use the `connectSharedAnimation` higher-order component to pass animated values as props. 
+You can also use the `connectSharedAnimation` higher-order component to pass animated values as props.
 
 This option gives you some customization options beyond the `useSharedAnimation`, such as taking global animated code out of your actual component.
 
@@ -243,9 +237,9 @@ export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
 
 #### `mapValuesToProps` (required)
 
-This is the first and only argument for `connectSharedAnimation`. It determines which animated values will be passed to the component as direct props. 
+This is the first and only argument for `connectSharedAnimation`. It determines which animated values will be passed to the component as direct props.
 
-This value can be either a `string`, `array of strings`, a `function`, or `null`. 
+This value can be either a `string`, `array of strings`, a `function`, or `null`.
 
 **mapValuesToProps as a string**
 
@@ -265,7 +259,6 @@ export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
 
 ```
 
-
 **mapValuesToProps as an array of strings**
 
 Enter the names of multiple global animated values you want passed as direct props.
@@ -283,8 +276,6 @@ const ConnectedComponent = ({ getValue, newValue, scroll, someOtherValue }) => {
 export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
 
 ```
-
-
 
 **mapValuesToProps a function**
 
@@ -314,7 +305,7 @@ export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
 
 ```
 
-*The function works the same as redux's `mapStateToProps`.*
+_The function works the same as redux's `mapStateToProps`._
 
 **mapStateToValues as null**
 
@@ -342,48 +333,41 @@ export default () => {
 }
 
 ```
+
 ---
 
 ### **`getValue(name)`**
 
-A function that takes in the name of a global animated value and returns the animated value itself. 
+A function that takes in the name of a global animated value and returns the animated value itself.
 
-*This is the most important function that you'll find yourself using all the time.*
+_This is the most important function that you'll find yourself using all the time._
 
 **Example**
 
 ```javascript
 const SomeComponent = () => {
-	const { getValue } = useSharedAnimation()
-	
-	const opacity = getValue('opacity')
-	
-	return (
-		<Animated.View style={{ opacity }} />
-	)
-}
+	const { getValue } = useSharedAnimation();
 
+	const opacity = getValue('opacity');
+
+	return <Animated.View style={{ opacity }} />;
+};
 ```
-
 
 ### **`animatedValues`**
 
 A dictionary containing the current global state of animated values. You can use this to access the global store directly, but I recommend using `getValue` instead, since it has some added convenience checks.
 
-
 **Example**
 
 ```javascript
 const SomeComponent = () => {
-	const { animatedValues } = useSharedAnimation()
-	
-	const { opacity } = animatedValues
-	
-	return (
-		<Animated.View style={{ opacity }} />
-	)
-}
+	const { animatedValues } = useSharedAnimation();
 
+	const { opacity } = animatedValues;
+
+	return <Animated.View style={{ opacity }} />;
+};
 ```
 
 ### **`newValue(name, value)`**
@@ -397,16 +381,12 @@ A function that creates a new global animated value. Takes a name as the first a
 ```javascript
 const SomeComponent = () => {
 	const { newValue } = useSharedAnimation();
-	
-	const opacity = newValue('opacity', new Animated.Value(1))
-	
-	return (
-		<Animated.View style={{ opacity }} />
-	)
-}
 
+	const opacity = newValue('opacity', new Animated.Value(1));
+
+	return <Animated.View style={{ opacity }} />;
+};
 ```
-
 
 ---
 
@@ -414,63 +394,52 @@ const SomeComponent = () => {
 
 ### `<SharedAnimationProvider />`
 
-| **Prop**  | Required | Type | Example |
-|---|---|---|---|
-| `animatedValues` | no (but recommended) | `dictionary` | `{ scroll: new Animated.Value(0) }` | 
-| `children` | yes | `React.Node` | Your app JSX should be a child component of this provider. | 
-
-
-
-
+| **Prop** | Required | Type | Example |
+| --- | --- | --- | --- |
+| `animatedValues` | no (but recommended) | `dictionary` | `{ scroll: new Animated.Value(0) }` |
+| `children` | yes | `React.Node` | Your app JSX should be a child component of this provider. |
 
 ## Illustrative example
 
 Sharing animated values across your entire app is as easy as this:
 
 ```javascript
-import React from 'react'
-import Animated from 'react-native-reanimated'
-import { SharedAnimationProvider, useSharedAnimation} from 'react-native-shared-animation'
+import React from 'react';
+import Animated from 'react-native-reanimated';
+import { SharedAnimationProvider, useSharedAnimation } from 'react-native-shared-animation';
 
 export default function App() {
-	const animatedValues = { scroll: new Animated.Value(0) }
+	const animatedValues = { scroll: new Animated.Value(0) };
 	return (
 		<SharedAnimationProvider animatedValues={animatedValues}>
 			<ComponentWithScrollView />
 			<OtherComponentThatAccessesScroll />
 		</SharedAnimationProvider>
-	)
+	);
 }
 
 const OtherComponentThatAccessesScroll = () => {
-	const { getValue } = useSharedAnimation()
-	const scroll = getValue('scroll')
-	
-	return <Animated.View style={{ translateX: scroll }} />
-}
+	const { getValue } = useSharedAnimation();
+	const scroll = getValue('scroll');
+
+	return <Animated.View style={{ translateX: scroll }} />;
+};
 
 const ComponentWithScrollView = () => {
-	const { getValue } = useSharedAnimation()
-	const scroll = getValue('scroll')
+	const { getValue } = useSharedAnimation();
+	const scroll = getValue('scroll');
 	const onScroll = Animated.event([
 		{
 			nativeEvent: {
 				contentOffset: {
-					y: scroll
-				}
-			}
-		}
-	])
+					y: scroll,
+				},
+			},
+		},
+	]);
 
-	return (
-		<Animated.ScrollView onScroll={onScroll} />
-	)
-
-}
-
+	return <Animated.ScrollView onScroll={onScroll} />;
+};
 ```
 
 Yup, that's it. No prop drilling at all.
-
-
-
