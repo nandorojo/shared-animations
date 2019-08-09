@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es2017",
+		"target": "es6",
 		"jsx": "react-native",
 		"strict": true,
 		"noImplicitAny": true,
@@ -15,15 +15,11 @@
 		"noFallthroughCasesInSwitch": true,
 		"forceConsistentCasingInFileNames": true,
 		"types": ["react", "react-native"],
-		"outDir": "lib",
-		"declaration": true,
-		"declarationDir": "lib",
+		"outDir": "libby",
 		"allowSyntheticDefaultImports": true,
-		"lib": ["dom", "esnext"],
 		"moduleResolution": "node",
 		"noEmit": true,
-		"skipLibCheck": true,
-		"resolveJsonModule": true
+		"skipLibCheck": true
 	},
 	"include": ["src"]
 }

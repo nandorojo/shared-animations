@@ -1,0 +1,64 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/0.27.5_1/libexec/bin/yarn.js publish
+
+PATH: 
+  /Users/Fernando/Library/Android/sdk/platform-tools:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/Fernando/Library/Android/sdk/platform-tools:/Library/Frameworks/Python.framework/Versions/3.6/bin
+
+Yarn version: 
+  0.27.5
+
+Node version: 
+  8.12.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+  	"name": "@fernandorojo/react-native-shared-animation",
+  	"description": "A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.",
+  	"version": "1.0.1",
+  	"main": "lib/index.js",
+  	"scripts": {
+  		"test": "echo \"Error: no test specified\" && exit 1",
+  		"build": "tsc -p ."
+  	},
+  	"author": "Fernando Rojo",
+  	"license": "MIT",
+  	"peerDependencies": {
+  		"react": ">=16.0.0",
+  		"react-native": "*",
+  		"react-native-reaniamted": "*"
+  	},
+  	"devDependencies": {
+  		"@types/react": "^16.8.23",
+  		"@types/react-native": "^0.57.65",
+  		"babel-preset-expo": "^6.0.0",
+  		"expo": "^34.0.1",
+  		"react": "16.8.3",
+  		"react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
+  		"react-native-gesture-handler": "^1.3.0",
+  		"react-native-reanimated": "^1.1.0",
+  		"react-native-redash": "^7.5.0",
+  		"typescript": "^3.4.5"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@fernandorojo%2freact-native-shared-animation: You must sign up for private packages
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/0.27.5_1/libexec/lib/yarn-cli.js:58200:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/0.27.5_1/libexec/lib/yarn-cli.js:114242:22)
+      at emitTwo (events.js:126:13)
+      at Request.emit (events.js:214:7)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/0.27.5_1/libexec/lib/yarn-cli.js:115225:10)
+      at emitOne (events.js:116:13)
+      at Request.emit (events.js:211:7)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/0.27.5_1/libexec/lib/yarn-cli.js:115145:12)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:111:20)

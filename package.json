@@ -1,7 +1,7 @@
 {
-	"name": "react-native-shared-animation",
+	"name": "@fernandorojo/react-native-shared-animation",
 	"description": "A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"main": "lib/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -18,12 +18,12 @@
 		"@types/react": "^16.8.23",
 		"@types/react-native": "^0.57.65",
 		"babel-preset-expo": "^6.0.0",
-		"typescript": "^3.4.5",
 		"expo": "^34.0.1",
 		"react": "16.8.3",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
 		"react-native-gesture-handler": "^1.3.0",
 		"react-native-reanimated": "^1.1.0",
-		"react-native-redash": "^7.5.0"
+		"react-native-redash": "^7.5.0",
+		"typescript": "^3.4.5"
 	}
 }
