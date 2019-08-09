@@ -2,10 +2,12 @@
 	"name": "@fernandorojo/react-native-shared-animation",
 	"description": "A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.",
 	"version": "1.0.1",
-	"main": "lib/index.js",
+	"main": "compiled/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "tsc -p ."
+		"build:tsc": "tsc -p .",
+		"check-types": "tsc",
+		"build": "npx babel src --extensions '.ts' --out-dir lib"
 	},
 	"author": "Fernando Rojo",
 	"license": "MIT",
@@ -15,8 +17,17 @@
 		"react-native-reaniamted": "*"
 	},
 	"devDependencies": {
-		"@types/react": "^16.8.23",
+		"@babel/cli": "^7.5.5",
+		"@babel/core": "^7.5.5",
+		"@babel/plugin-proposal-class-properties": "^7.5.5",
+		"@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+		"@babel/preset-typescript": "^7.3.3",
+		"@types/enzyme": "^3.10.3",
+		"@types/enzyme-adapter-react-16": "^1.0.5",
+		"@types/jest": "^24.0.17",
+		"@types/react": "^16.9.1",
 		"@types/react-native": "^0.57.65",
+		"@types/webpack-env": "^1.14.0",
 		"babel-preset-expo": "^6.0.0",
 		"expo": "^34.0.1",
 		"react": "16.8.3",
@@ -24,6 +35,18 @@
 		"react-native-gesture-handler": "^1.3.0",
 		"react-native-reanimated": "^1.1.0",
 		"react-native-redash": "^7.5.0",
-		"typescript": "^3.4.5"
+		"source-map-loader": "^0.2.4",
+		"ts-jest": "^24.0.2",
+		"tslint": "^5.18.0",
+		"tslint-react": "^4.0.0",
+		"typescript": "^3.5.3"
+	},
+	"dependencies": {
+		"@babel/preset-react": "^7.0.0",
+		"@types/react-dom": "^16.8.5",
+		"@types/react-router-dom": "^4.3.4",
+		"babel-loader": "^7.1.5",
+		"tslint-config-prettier": "^1.18.0",
+		"webpack": "^4.39.1"
 	}
 }
