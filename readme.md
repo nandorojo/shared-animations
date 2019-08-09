@@ -10,22 +10,6 @@ Also supports `react-native-reanimated` and `react-native-gesture-handler`.
 
 **Sharing animated values across components should be easy.** However, it currently requires so much prop drilling that any complex animation in `react-native` becomes a hassle to manage.
 
-**🤔 When might you use this?**
-
-Any time you find yourself passing a certain animation value from one component to another more than once, `react-native-shared-animation` feels like a breath of fresh air.
-
-**Example use case**
-
-Maybe you have a component with a `ScrollView`, and a header you want to react to its scroll position, but the two components aren't that close together code-wise. If this were the case, without this library, have to declare an animated value high up in the component tree, and then pass it down the three through many layers of components.
-
-This library aims to fix that.
-
-I also think this could help make it easy to achieve shared transitions across screens. I haven't put together an example for that yet, so if you do, please submit a PR :)
-
-**Syntax**
-
-Much of the syntax is similar to `react-redux`, but if you aren't familiar with how redux works, don't worry; this is much simpler.
-
 ## Quick setup
 
 The boilerplate setup takes about 15 seconds and is similar to redux in how it works. Just wrap your entire app with the `<SharedAnimationProvider />` component.
