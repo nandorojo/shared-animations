@@ -1,8 +1,22 @@
-export class C {
-    private x = 10
-    getX = () => this.x;
-    setX = (newVal: number) => { this.x = newVal; }
-}
+import SharedAnimationProvider from './Context/SharedAnimationProvider';
+import connectSharedAnimation from './HOC/connectSharedAnimation';
+import SharedAnimation from './Context/SharedAnimation';
+import useSharedAnimation from './useSharedAnimation/index';
 
-export let x = new C();
-export let y = { ...{ some: "value" } }
+export default {
+	SharedAnimationProvider,
+	connectSharedAnimation,
+	SharedAnimation,
+	useSharedAnimation,
+};
+
+// export class C {
+// 	private ox = 10;
+// 	getX = () => this.ox;
+// 	setX = (newVal: number) => {
+// 		this.ox = newVal;
+// 	};
+// }
+
+// export let x = new C();
+// export let y = { ...{ some: 'value' } };

@@ -1,8 +1,8 @@
 {
-  "presets": ["@babel/env", "@babel/typescript"],
-  "plugins": [
-    "@babel/plugin-proposal-numeric-separator",
-    "@babel/proposal-class-properties",
-    "@babel/proposal-object-rest-spread"
-  ]
+	"presets": ["@babel/env", "@babel/typescript", "@babel/react"],
+	"plugins": [
+		"@babel/plugin-proposal-numeric-separator",
+		"@babel/proposal-class-properties",
+		"@babel/proposal-object-rest-spread"
+	]
 }
