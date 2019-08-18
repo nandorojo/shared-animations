@@ -1,5 +1,6 @@
-import Animated from 'react-native-reanimated';
-import { Animated as NativeAnimated } from 'react-native';
+// @ts-ignore
+import Animated from 'react-native-reanimated'
+import { Animated as NativeAnimated } from 'react-native'
 
 type ReanimatedType =
 	| Animated.Value<any>
@@ -11,12 +12,12 @@ type ReanimatedType =
 	| Animated.TimingState
 	| Animated.Adaptable<any>
 	| Animated.BackwardCompatibleWrapper
-	| Animated.EasingFunction;
+	| Animated.EasingFunction
 
 type NativeType =
 	| NativeAnimated.AnimatedValue
 	| NativeAnimated.AnimatedValueXY
 	| NativeAnimated.AnimatedMultiplication
-	| NativeAnimated.AnimatedInterpolation;
+	| NativeAnimated.AnimatedInterpolation
 
-export type AnimatedType = ReanimatedType | NativeType;
+export type AnimatedType = ReanimatedType | NativeType

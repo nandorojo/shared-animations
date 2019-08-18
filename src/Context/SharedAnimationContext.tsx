@@ -1,11 +1,10 @@
-import { createContext } from 'react';
-import Animated from 'react-native-reanimated';
-import { AnimatedType } from '../types';
+import { createContext } from 'react'
+import { AnimatedType } from '../types/index'
 
 export interface AnimationContextType {
-	getValue: (name: string) => AnimatedType;
-	newValue: (name: string, value: AnimatedType) => AnimatedType;
-	animatedValues: { [key: string]: AnimatedType };
+	getValue: (name: string) => AnimatedType
+	newValue: (name: string, value: AnimatedType) => AnimatedType
+	animatedValues: { [key: string]: AnimatedType }
 }
 
 // const SharedAnimationContext = createContext({
@@ -14,7 +13,8 @@ export interface AnimationContextType {
 // 	animatedValues: {},
 // });
 
-const SharedAnimationContext = createContext();
-SharedAnimationContext.displayName = 'SharedAnimation';
+// @ts-ignore
+const SharedAnimationContext = createContext()
+SharedAnimationContext.displayName = 'SharedAnimation'
 
-export default SharedAnimationContext;
+export default SharedAnimationContext
