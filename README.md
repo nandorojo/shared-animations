@@ -1,260 +1,447 @@
-# TypeScript-Babel-Starter
+# 🕺 react-native-shared-animation
 
-# What is this?
+A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.
 
-This is a small sample repository that uses Babel to transform TypeScript to plain JavaScript, and uses TypeScript for type-checking.
-This README will also explain step-by-step how you can set up this repository so you can understand how each component fits together.
+This package is super easy to use and requires no more than 1 minute of learning.
 
-For simplicity, we've used `babel-cli` with a bare-bones TypeScript setup, but we'll also demonstrate integration with JSX/React, as well as adding bundlers into the mix.
-Specifically, we'll show off integration with Webpack for if you're deploying an application, and Rollup for if you're producing a library.
+Also supports `react-native-reanimated` and `react-native-gesture-handler`.
 
-# How do I use it?
+## Why?
 
-## Building the repo
+**Sharing animated values across components should be easy.** However, it currently requires so much prop drilling that any complex animation in `react-native` becomes a hassle to manage.
 
-```sh
-npm run build
-```
+**🤔 When might you use this?**
 
-## Type-checking the repo
+Any time you find yourself passing a certain animation value from one component to another more than once, `react-native-shared-animation` feels like a breath of fresh air.
 
-```sh
-npm run type-check
-```
+**Example use case**
 
-And to run in `--watch` mode:
+Maybe you have a component with a `ScrollView`, and a header you want to react to its scroll position, but the two components aren't that close together code-wise. If this were the case, without this library, have to declare an animated value high up in the component tree, and then pass it down the three through many layers of components.
 
-```sh
-npm run type-check:watch
-```
+This library aims to fix that.
 
-# How would I set this up myself?
+I also think this could help make it easy to achieve shared transitions across screens. I haven't put together an example for that yet, so if you do, please submit a PR :)
 
-## Install your dependencies
+**Syntax**
 
-Either run the following:
+Much of the syntax is similar to `react-redux`, but if you aren't familiar with how redux works, don't worry; this is much simpler.
 
-```sh
-npm install --save-dev typescript @babel/core @babel/cli @babel/plugin-proposal-class-properties @babel/plugin-proposal-object-rest-spread @babel/preset-env @babel/preset-typescript @babel/plugin-proposal-numeric-separator
-```
+## Quick setup
 
-or make sure that you add the appropriate `"devDependencies"` entries to your `package.json` and run `npm install`:
+The boilerplate setup takes about 15 seconds and is similar to redux in how it works. Just wrap your entire app with the `<SharedAnimationProvider />` component.
 
-```json
-"devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
-    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
-    "@babel/preset-env": "^7.4.1",
-    "@babel/preset-typescript": "^7.3.2",
-    "typescript": "^3.3.3"
+**App.js**
+
+```javascript
+import React from 'react'
+import { SharedAnimationProvider } from 'react-native-shared-animation'
+import Animated from 'react-native-reanimated'
+import App from './src/App'
+
+export default () => {
+	const animatedValues = { myCoolAnimatedValue: new Animated.Value(0) }
+	return (
+		<SharedAnimationProvider animatedValues={animatedValues}>
+			<App />
+		</SharedAnimationProvider>
+	)
 }
 ```
 
-## Create your `tsconfig.json`
+In some other nested component, all you'd need to do is this:
 
-Then run
+```javascript
+import React from 'react'
+import { useSharedAnimation } from 'react-native-shared-animation'
+import Animated from 'react-native-reanimated'
 
-```sh
-tsc --init --declaration --allowSyntheticDefaultImports --target esnext --outDir lib
-```
+export default () => {
+	// here we get the value from our global store using react hooks
+	const { getValue } = useSharedAnimation()
+	const coolValue = getValue('myCoolAnimatedValue')
 
-**Note:** TypeScript also provides a `--declarationDir` option which specifies an output directory for generated declaration files (`.d.ts` files).
-For our uses where `--emitDeclarationOnly` is turned on, `--outDir` works equivalently.
-
-## Create your `.babelrc`
-
-Then copy the `.babelrc` in this repo, or the below:
-
-```json
-{
-    "presets": [
-        "@babel/env",
-        "@babel/typescript"
-    ],
-    "plugins": [
-        "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread"
-    ]
+	return <Animated.View style={{ width: coolValue }} />
 }
 ```
 
-## Set up your build tasks
+You can also use the `connectSharedAnimation` HOC or the `<SharedAnimation />` component if you don't want to use the `useSharedAnimation` hook.
 
-Add the following to the `"scripts"` section of your `package.json`
+🎉 **All set. Your app is now ready to share animated values across components.**
 
-```json
-"scripts": {
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
+Below I'll expand on all the ways that you're able to **1) initialize animated values** and **2) access animated values**.
+
+## Examples
+
+**To see full examples, go to the [/examples]() folder.** You can also see the Expo snack of examples [here]().
+
+## Installation
+
+To install, open your react native repository in the terminal and run this command:
+
+```
+npm i react-native-shared-animation
+```
+
+You could use yarn if you prefer that:
+
+```
+yarn react-native-shared-animation
+```
+
+**Recommended:** If you want to use [`react-native-reanimated`](https://github.com/kmagiera/react-native-reanimated) for animations, run this afterwards:
+
+```
+npm i react-native-reanimated react-native-gesture-handler
+```
+
+### This works with...
+
+✅ `react-native-reanimated`
+
+✅ `Animated` from `react-native` if you prefer that.
+
+✅ `Expo`
+
+✅ `Typescript`
+
+✅ `react-native-gesture-handler`
+
+## 1) Initializing shared animated values
+
+You have two options for initializing shared animation values: global initialization or on-the-fly initializiation in components.
+
+### i) [Recommended] Initialize global animated values
+
+Simply pass an `animatedValues` object as a prop to the `<SharedAnimationProvider />` component. This will act as the initial set of animated values.
+
+You can initialize as many animated values as you'd like.
+
+**App.js**
+
+```javascript
+import React from 'react'
+import { SharedAnimationProvider } from 'react-native-shared-animation'
+import Animated from 'react-native-reanimated'
+import App from './src/App' // path to your root component
+
+export default () => {
+	const mainScrollValue = new Animated.Value(0)
+	const animatedValues = { mainScrollValue }
+
+	<SharedAnimationProvider animatedValues={animatedValues}>
+		<App />
+	</SharedAnimationProvider>
+}
+
+```
+
+**🐻 That's it! Your app now has globally-accessible animated values.**
+
+In this case, `mainScrollValue` can be accessed by **any** component.
+
+If you come from a redux background, you can think of this like setting the initial store value.
+
+#### Why this is the better option:
+
+From a style perspective, it is useful to know what values will be accessible across your app upon initialization. And when it comes to performance, this is less prone to bugs, since you'll never try to access a value that hasn't been initialized.
+
+That said, you also have the `newValue` method to your disposal, as described in the next option.
+
+### **ii) [Careful] Initialize animated values on the fly in components**
+
+You can also initialize animated values directly in components. The thing is, this option is more prone to bugs, since you might try to access an animated value before it's been initialized.
+
+Overall, I'd suggest only using this one on a case-by-case basis.
+
+It can be achieved with the `newValue(name, value)` function, documented [below]().
+
+## 2) Accessing animated values
+
+Here's the fun part.
+
+---
+
+### There are 3 ways to access animated values
+
+These are the 3 options you have:
+
+1. **`useSharedAnimation` hook:** The `useSharedAnimation` hook is super simple (and is my favorite to use). Only works in function components. See react hooks to learn more.
+
+2. **`connectSharedAnimation` HOC:** You can use the `connectSharedAnimation` higher-order component. Useful for class components and function components. Good for taking animation logic out of a component, too.
+
+3. **`SharedAnimation` component:** You can also wrap any component with `<SharedAnimation />` to connect it to the global animation state.
+
+---
+
+### Option 1: `useSharedAnimation`
+
+Call `useSharedAnimation` in the root of a function component.
+
+**Example:**
+
+```javascript
+...
+import { useSharedAnimation } from 'react-native-shared-animation'
+
+export default () => {
+	const { getValue, newValue, animatedValues } = useSharedAnimation();
+	const scroll = getValue('scroll')
+	// same as...
+	const { scroll } = animatedValues;
+
+	return <Animated.View style={{ ..., translateX: scroll }} />
+}
+
+```
+
+So simple!
+
+🤑🤑
+
+**If you're using a version of react / react-native that supports hooks, you can happily stop reading the docs here and just use this.**
+
+--
+
+### Option 2: `connectSharedAnimation(mapValuesToProps)(Component)`
+
+You can also use the `connectSharedAnimation` higher-order component to pass animated values as props.
+
+This option gives you some customization options beyond the `useSharedAnimation`, such as taking global animated code out of your actual component.
+
+**This HOC passes `newValue`, `getValue`, and any animated values you choose as props to your `Component`.**
+
+**Example:**
+
+```javascript
+...
+import { connectSharedAnimation } from 'react-native-shared-animation'
+
+const ConnectedComponent = ({ getValue, newValue, scroll }) => {
+	return <Animated.View style={{ ..., translateX: scroll }} />
+}
+
+// determine which values you want to pass to this component
+const mapValuesToProps = animatedValues => ({
+	scroll: animatedValues.scroll
+})
+
+// could also have done this:
+// const mapValuesToProps = 'scroll'
+
+// ...or this:
+// const mapValuesToProps = ['scroll', 'someOtherValue']
+
+export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
+
+```
+
+#### `mapValuesToProps` (required)
+
+This is the first and only argument for `connectSharedAnimation`. It determines which animated values will be passed to the component as direct props.
+
+This value can be either a `string`, `array of strings`, a `function`, or `null`.
+
+**mapValuesToProps as a string**
+
+The string should correspond to an existing global animated value.
+
+```javascript
+...
+import { connectSharedAnimation } from 'react-native-shared-animation'
+
+const ConnectedComponent = ({ getValue, newValue, scroll }) => {
+	return <Animated.View style={{ ..., translateX: scroll }} />
+}
+
+const mapValuesToProps = 'scroll'
+
+export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
+
+```
+
+**mapValuesToProps as an array of strings**
+
+Enter the names of multiple global animated values you want passed as direct props.
+
+```javascript
+...
+import { connectSharedAnimation } from 'react-native-shared-animation'
+
+const ConnectedComponent = ({ getValue, newValue, scroll, someOtherValue }) => {
+	return <Animated.View style={{ ..., translateX: scroll }} />
+}
+
+// const mapValuesToProps = ['scroll', 'someOtherValue']
+
+export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
+
+```
+
+**mapValuesToProps a function**
+
+A function that takes in `animatedValues` as its first argument and returns an object that references these values. This can be useful if you want to abstract some animation logic out of your component.
+
+```javascript
+...
+import { connectSharedAnimation } from 'react-native-shared-animation'
+
+const ConnectedComponent = ({ getValue, newValue, scroll, opacity }) => {
+	return <Animated.View style={{ ..., translateX: scroll }} />
+}
+
+const mapValuesToProps = animatedValues => {
+	const { scroll } = animatedValues;
+	const opacity = interpolate(scroll, {
+		inputRange: [0, 400],
+		outputRange: [1, 0]
+	})
+	return {
+		scroll,
+		opacity
+	}
+}
+
+export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
+
+```
+
+_The function works the same as redux's `mapStateToProps`._
+
+**mapStateToValues as null**
+
+You can pass `null` to it if you don't want any animated values explicitly passed to the component. If you pass `null`, you will still have access to `getValue` and `newValue`.
+
+### Option 3: `SharedAnimation` Component
+
+A basic component that uses the render props method. (Similar in principle to the `[Query]()` component from `react-apollo`.)
+
+```javascript
+...
+import { SharedAnimation } from 'react-native-shared-animation'
+
+export default () => {
+	return (
+		<SharedAnimation>
+			{({ getValue, newValue }) => {
+				const scroll = getValue('scroll')
+				return (
+					<YourComponent scroll={scroll} />
+				)
+			})}
+		</SharedAnimation>
+	)
+}
+
+```
+
+---
+
+### **`getValue(name)`**
+
+A function that takes in the name of a global animated value and returns the animated value itself.
+
+_This is the most important function that you'll find yourself using all the time._
+
+**Example**
+
+```javascript
+const SomeComponent = () => {
+	const { getValue } = useSharedAnimation()
+
+	const opacity = getValue('opacity')
+
+	return <Animated.View style={{ opacity }} />
 }
 ```
 
-# How do I change it?
+### **`animatedValues`**
 
-## Using JSX (and React)
-> Full example available [**here**](https://github.com/a-tarasyuk/react-webpack-typescript-babel)
+A dictionary containing the current global state of animated values. You can use this to access the global store directly, but I recommend using `getValue` instead, since it has some added convenience checks.
 
-### Install your dependencies
+**Example**
 
-Install the [@babel/preset-react](https://www.npmjs.com/package/@babel/preset-react) package as well as React, ReactDOM, and their respective type declarations
+```javascript
+const SomeComponent = () => {
+	const { animatedValues } = useSharedAnimation()
 
-```sh
-npm install --save react react-dom @types/react @types/react-dom
-npm install --save-dev @babel/preset-react@7.0.0
+	const { opacity } = animatedValues
+
+	return <Animated.View style={{ opacity }} />
+}
 ```
 
-### Update `.babelrc`
+### **`newValue(name, value)`**
 
-Then add `"@babel/react"` as one of the presets in your `.babelrc`.
+A function that creates a new global animated value. Takes a name as the first argument, and an animated value (or node) as the second argument.
 
-### Update `tsconfig.json`
+**Returns:** the animated value it just created
 
-Update your `tsconfig.json` to set `"jsx"` to `"react"`.
+**Example**
 
-### Use a `.tsx` file
+```javascript
+const SomeComponent = () => {
+	const { newValue } = useSharedAnimation()
 
-Make sure that any files that contain JSX use the `.tsx` extension.
-To get going quickly, just rename `src/index.ts` to `src/index.tsx`, and add the following lines to the bottom:
+	const opacity = newValue('opacity', new Animated.Value(1))
 
-```ts
-import React from 'react';
-export let z = <div>Hello world!</div>;
+	return <Animated.View style={{ opacity }} />
+}
 ```
 
-## Using Webpack
+---
 
-> Full example available [**here**](https://github.com/a-tarasyuk/webpack-typescript-babel)
+## Documentation Recap
 
-### Install your dependencies
+### `<SharedAnimationProvider />`
 
-```sh
-npm install --save-dev webpack webpack-cli babel-loader@8.0.4
+| **Prop** | Required | Type | Example |
+| --- | --- | --- | --- |
+| `animatedValues` | no (but recommended) | `dictionary` | `{ scroll: new Animated.Value(0) }` |
+| `children` | yes | `React.Node` | Your app JSX should be a child component of this provider. |
+
+## Illustrative example
+
+Sharing animated values across your entire app is as easy as this:
+
+```javascript
+import React from 'react'
+import Animated from 'react-native-reanimated'
+import { SharedAnimationProvider, useSharedAnimation } from 'react-native-shared-animation'
+
+export default function App() {
+	const animatedValues = { scroll: new Animated.Value(0) }
+	return (
+		<SharedAnimationProvider animatedValues={animatedValues}>
+			<ComponentWithScrollView />
+			<OtherComponentThatAccessesScroll />
+		</SharedAnimationProvider>
+	)
+}
+
+const OtherComponentThatAccessesScroll = () => {
+	const { getValue } = useSharedAnimation()
+	const scroll = getValue('scroll')
+
+	return <Animated.View style={{ translateX: scroll }} />
+}
+
+const ComponentWithScrollView = () => {
+	const { getValue } = useSharedAnimation()
+	const scroll = getValue('scroll')
+	const onScroll = Animated.event([
+		{
+			nativeEvent: {
+				contentOffset: {
+					y: scroll,
+				},
+			},
+		},
+	])
+
+	return <Animated.ScrollView onScroll={onScroll} />
+}
 ```
 
-### Create a `webpack.config.js`
+Yup, that's it. No prop drilling at all.
 
-Create a `webpack.config.js` at the root of this project with the following contents:
-
-```js
-var path = require('path');
-
-module.exports = {
-    // Change to your "entry-point".
-    entry: './src/index',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'app.bundle.js'
-    },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
-    },
-    module: {
-        rules: [{
-            // Include ts, tsx, js, and jsx files.
-            test: /\.(ts|js)x?$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-        }],
-    }
-};
-```
-
-### Create a build task
-
-Add
-
-```json
-"bundle": "webpack"
-```
-
-to the `scripts` section in your `package.json`.
-
-### Run the build task
-
-```sh
-npm run bundle
-```
-
-## Using Rollup
-
-> Full example available [**here**](https://github.com/a-tarasyuk/rollup-typescript-babel)
-
-### Install your dependencies
-
-```sh
-npm install --save-dev rollup rollup-plugin-babel@latest rollup-plugin-node-resolve rollup-plugin-commonjs
-```
-
-### Create a `rollup.config.js`
-
-Create a `rollup.config.js` at the root of this project with the following contents:
-
-```js
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
-import pkg from './package.json';
-
-const extensions = [
-  '.js', '.jsx', '.ts', '.tsx',
-];
-
-const name = 'RollupTypeScriptBabel';
-
-export default {
-  input: './src/index.ts',
-
-  // Specify here external modules which you don't want to include in your bundle (for instance: 'lodash', 'moment' etc.)
-  // https://rollupjs.org/guide/en#external-e-external
-  external: [],
-
-  plugins: [
-    // Allows node_modules resolution
-    resolve({ extensions }),
-
-    // Allow bundling cjs modules. Rollup doesn't understand cjs
-    commonjs(),
-
-    // Compile TypeScript/JavaScript files
-    babel({ extensions, include: ['src/**/*'] }),
-  ],
-
-  output: [{
-    file: pkg.main,
-    format: 'cjs',
-  }, {
-    file: pkg.module,
-    format: 'es',
-  }, {
-    file: pkg.browser,
-    format: 'iife',
-    name,
-
-    // https://rollupjs.org/guide/en#output-globals-g-globals
-    globals: {},
-  }],
-};
-
-```
-
-### Create a build task
-
-Add
-
-```json
-"bundle": "rollup -c"
-```
-
-to the `scripts` section in your `package.json`.
-
-### Run the build task
-
-```sh
-npm run bundle
-```
+**PS:** Thank you to `react-native-community/bob` for making compiling this so easy.
