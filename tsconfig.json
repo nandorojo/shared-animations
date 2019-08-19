@@ -1,7 +1,11 @@
 {
 	"compilerOptions": {
+<<<<<<< HEAD
 		"target": "es2017",
 		"lib": ["es6"],
+=======
+		"target": "es6",
+>>>>>>> a8693f4bc5eaa0b6b9b3fb8ab99f8dab9379818c
 		"jsx": "react-native",
 		"strict": true,
 		"noImplicitAny": true,
@@ -15,9 +19,20 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 		"forceConsistentCasingInFileNames": true,
+<<<<<<< HEAD
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
 		"types": ["react", "react-native"]
 	},
 	"include": ["src/index.ts"]
+=======
+		"types": ["react", "react-native"],
+		"outDir": "libby",
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "node",
+		"noEmit": true,
+		"skipLibCheck": true
+	},
+	"include": ["src"]
+>>>>>>> a8693f4bc5eaa0b6b9b3fb8ab99f8dab9379818c
 }

@@ -1,1 +1,1 @@
-export const LIBRARY_NAME = 'react-native-shared-animation';
+export const LIBRARY_NAME = 'react-native-shared-animation'

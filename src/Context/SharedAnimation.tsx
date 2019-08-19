@@ -1,9 +1,9 @@
 // @ts-ignore
-import React from 'react';
-import AnimationContext, { AnimationContextType } from './SharedAnimationContext';
+import React from 'react'
+import AnimationContext, { AnimationContextType } from './SharedAnimationContext'
 
 interface AnimationConsumerProps {
-	children: (context: AnimationContextType) => React.ReactNode;
+	children: (context: AnimationContextType) => React.ReactNode
 }
 
 export default class SharedAnimation extends React.Component<AnimationConsumerProps> {
@@ -12,6 +12,6 @@ export default class SharedAnimation extends React.Component<AnimationConsumerPr
 			<AnimationContext.Consumer>
 				{(context: AnimationContextType) => this.props.children(context)}
 			</AnimationContext.Consumer>
-		);
+		)
 	}
 }

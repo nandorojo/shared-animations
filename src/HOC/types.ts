@@ -1,3 +1,3 @@
-type MapAnimationValueToProps = (animatedValuesFromContext: object) => object;
+type MapAnimationValueToProps = (animatedValuesFromContext: object) => object
 
-export type MapValuesToProps = string | string[] | MapAnimationValueToProps | null;
+export type MapValuesToProps = string | string[] | MapAnimationValueToProps | null
