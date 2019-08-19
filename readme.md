@@ -107,12 +107,12 @@ import Animated from 'react-native-reanimated'
 import App from './src/App' // path to your root component
 
 export default () => {
-  const mainScrollValue = new Animated.Value(0)
-  const animatedValues = { mainScrollValue }
+	const mainScrollValue = new Animated.Value(0)
+	const animatedValues = { mainScrollValue }
 
-  <SharedAnimationProvider animatedValues={animatedValues}>
-    <App />
-  </SharedAnimationProvider>
+	<SharedAnimationProvider animatedValues={animatedValues}>
+		<App />
+	</SharedAnimationProvider>
 }
 
 ```
@@ -166,12 +166,12 @@ Call `useSharedAnimation` in the root of a function component.
 import { useSharedAnimation } from 'react-native-shared-animation'
 
 export default () => {
-  const { getValue, newValue, animatedValues } = useSharedAnimation();
-  const scroll = getValue('scroll')
-  // same as...
-  const { scroll } = animatedValues;
+	const { getValue, newValue, animatedValues } = useSharedAnimation();
+	const scroll = getValue('scroll')
+	// same as...
+	const { scroll } = animatedValues;
 
-  return <Animated.View style={{ ..., translateX: scroll }} />
+	return <Animated.View style={{ ..., translateX: scroll }} />
 }
 
 ```
@@ -199,12 +199,12 @@ This option gives you some customization options beyond the `useSharedAnimation`
 import { connectSharedAnimation } from 'react-native-shared-animation'
 
 const ConnectedComponent = ({ getValue, newValue, scroll }) => {
-  return <Animated.View style={{ ..., translateX: scroll }} />
+	return <Animated.View style={{ ..., translateX: scroll }} />
 }
 
 // determine which values you want to pass to this component
 const mapValuesToProps = animatedValues => ({
-  scroll: animatedValues.scroll
+	scroll: animatedValues.scroll
 })
 
 // could also have done this:
@@ -232,7 +232,7 @@ The string should correspond to an existing global animated value.
 import { connectSharedAnimation } from 'react-native-shared-animation'
 
 const ConnectedComponent = ({ getValue, newValue, scroll }) => {
-  return <Animated.View style={{ ..., translateX: scroll }} />
+	return <Animated.View style={{ ..., translateX: scroll }} />
 }
 
 const mapValuesToProps = 'scroll'
@@ -250,7 +250,7 @@ Enter the names of multiple global animated values you want passed as direct pro
 import { connectSharedAnimation } from 'react-native-shared-animation'
 
 const ConnectedComponent = ({ getValue, newValue, scroll, someOtherValue }) => {
-  return <Animated.View style={{ ..., translateX: scroll }} />
+	return <Animated.View style={{ ..., translateX: scroll }} />
 }
 
 // const mapValuesToProps = ['scroll', 'someOtherValue']
@@ -268,19 +268,19 @@ A function that takes in `animatedValues` as its first argument and returns an o
 import { connectSharedAnimation } from 'react-native-shared-animation'
 
 const ConnectedComponent = ({ getValue, newValue, scroll, opacity }) => {
-  return <Animated.View style={{ ..., translateX: scroll }} />
+	return <Animated.View style={{ ..., translateX: scroll }} />
 }
 
 const mapValuesToProps = animatedValues => {
-  const { scroll } = animatedValues;
-  const opacity = interpolate(scroll, {
-    inputRange: [0, 400],
-    outputRange: [1, 0]
-  })
-  return {
-    scroll,
-    opacity
-  }
+	const { scroll } = animatedValues;
+	const opacity = interpolate(scroll, {
+		inputRange: [0, 400],
+		outputRange: [1, 0]
+	})
+	return {
+		scroll,
+		opacity
+	}
 }
 
 export default connectSharedAnimation(mapValuesToProps)(ConnectedComponent)
@@ -302,16 +302,16 @@ A basic component that uses the render props method. (Similar in principle to th
 import { SharedAnimation } from 'react-native-shared-animation'
 
 export default () => {
-  return (
-    <SharedAnimation>
-      {({ getValue, newValue }) => {
-        const scroll = getValue('scroll')
-        return (
-          <YourComponent scroll={scroll} />
-        )
-      })}
-    </SharedAnimation>
-  )
+	return (
+		<SharedAnimation>
+			{({ getValue, newValue }) => {
+				const scroll = getValue('scroll')
+				return (
+					<YourComponent scroll={scroll} />
+				)
+			})}
+		</SharedAnimation>
+	)
 }
 
 ```
