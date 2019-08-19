@@ -1,112 +1,72 @@
 {
-	"name": "@nandorojo/shared-animations",
-	"description": "A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.",
-<<<<<<< HEAD
-	"version": "1.0.28",
-	"main": "lib/module/index",
-	"module": "lib/module/index",
-	"react-native": "lib/module/index",
-	"types": "lib/typescript/index",
-	"homepage": "https://github.com/nandorojo/shared-animations",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/nandorojo/shared-animations"
-	},
-	"scripts": {
-		"type-check": "tsc --noEmit",
-		"type-check:watch": "npm run type-check -- --watch",
-		"build": "npm run build:types && npm run build:js",
-		"bundle": "babel src --out-file bundle/index.js --extensions \".ts,.tsx\" --source-maps inline",
-		"build:tsc": "npm run build:types && npm run build:test",
-		"build:redash:types": "tsc --noEmit",
-		"build:types": "tsc --emitDeclarationOnly --skipLibCheck",
-		"build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-		"build:test": "rm -R lib && babel src-og --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-		"build:babel": "rm -R lib && babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-		"build:final": "mkdir -p bundle && npm run bundle && npm run build:types",
-		"prepare": "bob build"
-	},
-	"peerDependencies": {
-		"react": "*",
-		"react-native": "*",
-		"react-native-reanimated": "*"
-	},
-	"devDependencies": {
-		"@babel/cli": "^7.2.3",
-		"@babel/core": "^7.4.0",
-		"@babel/plugin-proposal-class-properties": "^7.4.0",
-		"@babel/plugin-proposal-numeric-separator": "^7.2.0",
-		"@babel/plugin-proposal-object-rest-spread": "^7.4.0",
-		"@babel/preset-env": "^7.4.1",
-		"@babel/preset-react": "^7.0.0",
-		"@babel/preset-typescript": "^7.3.3",
-		"@react-native-community/bob": "^0.6.1",
-		"@types/react-native": "^0.60.4",
-		"babel-preset-expo": "^5.2.0",
-		"typescript": "^3.3.3"
-	},
-	"dependencies": {
-		"@types/react": "^16.9.1",
-		"@types/react-dom": "^16.8.5",
-		"react": "16.8.3",
-		"react-dom": "^16.9.0",
-		"react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
-		"react-native-reanimated": "^1.2.0"
-	},
-	"bugs": {
-		"url": "https://github.com/nandorojo/shared-animations/issues"
-	},
-	"author": "Fernando Rojo",
-	"license": "MIT",
-	"files": [
-		"lib",
-		"src"
-	],
-	"@react-native-community/bob": {
-		"source": "src",
-		"output": "lib",
-		"targets": [
-			"module",
-			"typescript"
-		]
-=======
-	"version": "1.0.7",
-	"main": "lib/index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"build:tsc": "tsc -p .",
-		"check-types": "tsc",
-		"build": "npx babel src --extensions '.tsx,.ts' --out-dir lib"
-	},
-	"author": "Fernando Rojo",
-	"license": "MIT",
-	"devDependencies": {
-		"@babel/cli": "^7.5.5",
-		"@babel/core": "^7.5.5",
-		"@babel/plugin-proposal-class-properties": "^7.5.5",
-		"@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-		"@babel/preset-typescript": "^7.3.3",
-		"@types/enzyme": "^3.10.3",
-		"@types/enzyme-adapter-react-16": "^1.0.5",
-		"@types/jest": "^24.0.17",
-		"@types/react": "^16.9.1",
-		"@types/react-native": "^0.57.65",
-		"@types/webpack-env": "^1.14.0",
-		"babel-preset-expo": "^6.0.0",
-		"react": "16.8.3",
-		"react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
-		"react-native-gesture-handler": "^1.3.0",
-		"react-native-reanimated": "^1.1.0",
-		"react-native-redash": "^7.5.0",
-		"source-map-loader": "^0.2.4",
-		"ts-jest": "^24.0.2",
-		"tslint": "^5.18.0",
-		"tslint-react": "^4.0.0",
-		"typescript": "^3.5.3"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/nandorojo/shared-animations"
->>>>>>> a8693f4bc5eaa0b6b9b3fb8ab99f8dab9379818c
-	}
+  "name": "@nandorojo/shared-animations",
+  "description": "A nimble global animtion-state management tool for react-native's `Animated` values. Think of it like a simple redux for react-native animation values.",
+  "version": "1.0.28",
+  "main": "lib/module/index",
+  "module": "lib/module/index",
+  "react-native": "lib/module/index",
+  "types": "lib/typescript/index",
+  "homepage": "https://github.com/nandorojo/shared-animations",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nandorojo/shared-animations"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "bundle": "babel src --out-file bundle/index.js --extensions \".ts,.tsx\" --source-maps inline",
+    "build:tsc": "npm run build:types && npm run build:test",
+    "build:redash:types": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --skipLibCheck",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:test": "rm -R lib && babel src-og --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:babel": "rm -R lib && babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:final": "mkdir -p bundle && npm run bundle && npm run build:types",
+    "prepare": "bob build"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/preset-env": "^7.4.1",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@react-native-community/bob": "^0.6.1",
+    "@types/react-native": "^0.60.4",
+    "babel-preset-expo": "^5.2.0",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.1",
+    "@types/react-dom": "^16.8.5",
+    "react": "16.8.3",
+    "react-dom": "^16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
+    "react-native-reanimated": "^1.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/nandorojo/shared-animations/issues"
+  },
+  "author": "Fernando Rojo",
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "module",
+      "typescript"
+    ]
+  }
 }

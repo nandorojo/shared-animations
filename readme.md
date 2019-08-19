@@ -12,41 +12,39 @@ Like redux for animations.
 
 The boilerplate setup takes about 15 seconds and is similar to redux in how it works. Just wrap your entire app with the `<SharedAnimationProvider />` component.
 
+**NestedComponent.js**
+
+```javascript
+import React from 'react'
+import { useSharedAnimation } from 'react-native-shared-animation'
+import Animated from 'react-native-reanimated'
+
+export default () => {
+  // here we get the value from our global store using react hooks
+  const { getValue } = useSharedAnimation()
+  const coolValue = getValue('myCoolAnimatedValue')
+
+  return <Animated.View style={{ width: coolValue }} />
+}
+```
+
 **App.js**
 
 ```javascript
-import React from 'react';
-import { SharedAnimationProvider } from 'react-native-shared-animation';
-import Animated from 'react-native-reanimated';
-import App from './src/App';
+import React from 'react'
+import { SharedAnimationProvider } from 'react-native-shared-animation'
+import Animated from 'react-native-reanimated'
+import App from './src/App'
 
 export default () => {
-	const animatedValues = { myCoolAnimatedValue: new Animated.Value(0) };
-	return (
-		<SharedAnimationProvider animatedValues={animatedValues}>
-			<App />
-		</SharedAnimationProvider>
-	);
-};
+  const animatedValues = { myCoolAnimatedValue: new Animated.Value(0) }
+  return (
+    <SharedAnimationProvider animatedValues={animatedValues}>
+      <App />
+    </SharedAnimationProvider>
+  )
+}
 ```
-
-In some other nested component, all you'd need to do is this:
-
-```javascript
-import React from 'react';
-import { useSharedAnimation } from 'react-native-shared-animation';
-import Animated from 'react-native-reanimated';
-
-export default () => {
-	// here we get the value from our global store using react hooks
-	const { getValue } = useSharedAnimation();
-	const coolValue = getValue('myCoolAnimatedValue');
-
-	return <Animated.View style={{ width: coolValue }} />;
-};
-```
-
-You can also use the `connectSharedAnimation` HOC or the `<SharedAnimation />` component if you don't want to use the `useSharedAnimation` hook.
 
 🎉 **All set. Your app is now ready to share animated values across components.**
 
@@ -54,7 +52,7 @@ Below I'll expand on all the ways that you're able to **1) initialize animated v
 
 ## Examples
 
-**To see full examples, go to the [/examples]() folder.** You can also see the Expo snack of examples [here]().
+**To see full examples, go to the [/examples](https://github.com/nandorojo/shared-animations/tree/master/examples) folder.** You can also see the Expo snack of examples [here](https://snack.expo.io/@nandorojo/react-native-shared-animations).
 
 ## Installation
 
@@ -328,12 +326,12 @@ _This is the most important function that you'll find yourself using all the tim
 
 ```javascript
 const SomeComponent = () => {
-	const { getValue } = useSharedAnimation();
+  const { getValue } = useSharedAnimation()
 
-	const opacity = getValue('opacity');
+  const opacity = getValue('opacity')
 
-	return <Animated.View style={{ opacity }} />;
-};
+  return <Animated.View style={{ opacity }} />
+}
 ```
 
 ### **`animatedValues`**
@@ -344,12 +342,12 @@ A dictionary containing the current global state of animated values. You can use
 
 ```javascript
 const SomeComponent = () => {
-	const { animatedValues } = useSharedAnimation();
+  const { animatedValues } = useSharedAnimation()
 
-	const { opacity } = animatedValues;
+  const { opacity } = animatedValues
 
-	return <Animated.View style={{ opacity }} />;
-};
+  return <Animated.View style={{ opacity }} />
+}
 ```
 
 ### **`newValue(name, value)`**
@@ -362,12 +360,12 @@ A function that creates a new global animated value. Takes a name as the first a
 
 ```javascript
 const SomeComponent = () => {
-	const { newValue } = useSharedAnimation();
+  const { newValue } = useSharedAnimation()
 
-	const opacity = newValue('opacity', new Animated.Value(1));
+  const opacity = newValue('opacity', new Animated.Value(1))
 
-	return <Animated.View style={{ opacity }} />;
-};
+  return <Animated.View style={{ opacity }} />
+}
 ```
 
 ---
@@ -386,42 +384,42 @@ const SomeComponent = () => {
 Sharing animated values across your entire app is as easy as this:
 
 ```javascript
-import React from 'react';
-import Animated from 'react-native-reanimated';
-import { SharedAnimationProvider, useSharedAnimation } from 'react-native-shared-animation';
+import React from 'react'
+import Animated from 'react-native-reanimated'
+import { SharedAnimationProvider, useSharedAnimation } from 'react-native-shared-animation'
 
 export default function App() {
-	const animatedValues = { scroll: new Animated.Value(0) };
-	return (
-		<SharedAnimationProvider animatedValues={animatedValues}>
-			<ComponentWithScrollView />
-			<OtherComponentThatAccessesScroll />
-		</SharedAnimationProvider>
-	);
+  const animatedValues = { scroll: new Animated.Value(0) }
+  return (
+    <SharedAnimationProvider animatedValues={animatedValues}>
+      <ComponentWithScrollView />
+      <OtherComponentThatAccessesScroll />
+    </SharedAnimationProvider>
+  )
 }
 
 const OtherComponentThatAccessesScroll = () => {
-	const { getValue } = useSharedAnimation();
-	const scroll = getValue('scroll');
+  const { getValue } = useSharedAnimation()
+  const scroll = getValue('scroll')
 
-	return <Animated.View style={{ translateX: scroll }} />;
-};
+  return <Animated.View style={{ translateX: scroll }} />
+}
 
 const ComponentWithScrollView = () => {
-	const { getValue } = useSharedAnimation();
-	const scroll = getValue('scroll');
-	const onScroll = Animated.event([
-		{
-			nativeEvent: {
-				contentOffset: {
-					y: scroll,
-				},
-			},
-		},
-	]);
+  const { getValue } = useSharedAnimation()
+  const scroll = getValue('scroll')
+  const onScroll = Animated.event([
+    {
+      nativeEvent: {
+        contentOffset: {
+          y: scroll,
+        },
+      },
+    },
+  ])
 
-	return <Animated.ScrollView onScroll={onScroll} />;
-};
+  return <Animated.ScrollView onScroll={onScroll} />
+}
 ```
 
 Yup, that's it. No prop drilling at all.
