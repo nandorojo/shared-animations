@@ -16,7 +16,7 @@ The boilerplate setup takes about 15 seconds and is similar to redux in how it w
 
 ```javascript
 import React from 'react';
-import { SharedAnimationProvider } from 'react-native-shared-animation';
+import { SharedAnimationProvider } from '@fernandorojo/react-native-shared-animation';
 import Animated from 'react-native-reanimated';
 import App from './src/App';
 
@@ -34,7 +34,7 @@ In some other nested component, all you'd need to do is this:
 
 ```javascript
 import React from 'react';
-import { useSharedAnimation } from 'react-native-shared-animation';
+import { useSharedAnimation } from '@fernandorojo/react-native-shared-animation';
 import Animated from 'react-native-reanimated';
 
 export default () => {
