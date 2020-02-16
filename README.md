@@ -61,13 +61,13 @@ Below I'll expand on all the ways that you're able to **1) initialize animated v
 To install, open your react native repository in the terminal and run this command:
 
 ```
-npm i @nandorojo/shared-animations
+npm i @fernandorojo/react-native-shared-animation
 ```
 
 You could use yarn if you prefer that:
 
 ```
-yarn add @nandorojo/shared-animations
+yarn add @fernandorojo/react-native-shared-animation
 ```
 
 **Recommended:** If you want to use [`react-native-reanimated`](https://github.com/kmagiera/react-native-reanimated) for animations, run this afterwards:
@@ -102,7 +102,7 @@ You can initialize as many animated values as you'd like.
 
 ```javascript
 import React from 'react'
-import { SharedAnimationProvider } from 'react-native-shared-animation'
+import { SharedAnimationProvider } from '@fernandorojo/react-native-shared-animation'
 import Animated from 'react-native-reanimated'
 import App from './src/App' // path to your root component
 
@@ -163,7 +163,7 @@ Call `useSharedAnimation` in the root of a function component.
 
 ```javascript
 ...
-import { useSharedAnimation } from 'react-native-shared-animation'
+import { useSharedAnimation } from '@fernandorojo/react-native-shared-animation'
 
 export default () => {
 	const { getValue, newValue, animatedValues } = useSharedAnimation();
@@ -229,7 +229,7 @@ The string should correspond to an existing global animated value.
 
 ```javascript
 ...
-import { connectSharedAnimation } from 'react-native-shared-animation'
+import { connectSharedAnimation } from '@fernandorojo/react-native-shared-animation'
 
 const ConnectedComponent = ({ getValue, newValue, scroll }) => {
 	return <Animated.View style={{ ..., translateX: scroll }} />
@@ -247,7 +247,7 @@ Enter the names of multiple global animated values you want passed as direct pro
 
 ```javascript
 ...
-import { connectSharedAnimation } from 'react-native-shared-animation'
+import { connectSharedAnimation } from '@fernandorojo/react-native-shared-animation'
 
 const ConnectedComponent = ({ getValue, newValue, scroll, someOtherValue }) => {
 	return <Animated.View style={{ ..., translateX: scroll }} />
@@ -265,7 +265,7 @@ A function that takes in `animatedValues` as its first argument and returns an o
 
 ```javascript
 ...
-import { connectSharedAnimation } from 'react-native-shared-animation'
+import { connectSharedAnimation } from '@fernandorojo/react-native-shared-animation'
 
 const ConnectedComponent = ({ getValue, newValue, scroll, opacity }) => {
 	return <Animated.View style={{ ..., translateX: scroll }} />
@@ -299,7 +299,7 @@ A basic component that uses the render props method. (Similar in principle to th
 
 ```javascript
 ...
-import { SharedAnimation } from 'react-native-shared-animation'
+import { SharedAnimation } from '@fernandorojo/react-native-shared-animation'
 
 export default () => {
 	return (
@@ -388,7 +388,7 @@ Sharing animated values across your entire app is as easy as this:
 ```javascript
 import React from 'react';
 import Animated from 'react-native-reanimated';
-import { SharedAnimationProvider, useSharedAnimation } from 'react-native-shared-animation';
+import { SharedAnimationProvider, useSharedAnimation } from '@fernandorojo/react-native-shared-animation';
 
 export default function App() {
 	const animatedValues = { scroll: new Animated.Value(0) };
